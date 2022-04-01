@@ -1,0 +1,19 @@
+[Unit]
+Description=Notify service
+After=network.target
+After=mysql.service
+Requires=mysql.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+Group=daemon
+WorkingDirectory=/home/chatbot
+OOMScoreAdjust=-100
+ExecStart=/usr/bin/env php8.0 -f "/home/chatbot/getUpdatesCLI.php" 1>/dev/null
+
+[Install]
+WantedBy=multi-user.target
